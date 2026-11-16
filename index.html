@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador de disculpas con IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="tarjeta">
+    <h1>Perdón, bien dicho</h1>
+    <p class="subtitulo">Cuéntanos a quién le debes una disculpa y la IA la redacta por ti.</p>
+
+    <form id="formulario" novalidate>
+      <label for="claveApi">Tu API Key de Google AI Studio</label>
+      <input type="password" id="claveApi" placeholder="Pégala aquí (se guarda solo en tu navegador)" autocomplete="off">
+
+      <label for="situacion">Situación típica (opcional)</label>
+      <select id="situacion">
+        <option value="">Ninguna, la escribiré yo</option>
+        <option value="A un amigo, por llegar tarde a su cumpleaños">Llegué tarde</option>
+        <option value="A mi pareja, por olvidar nuestro aniversario">Olvidé una fecha importante</option>
+        <option value="A un compañero, por no cumplir mi parte del trabajo en equipo">Falté en un trabajo en equipo</option>
+        <option value="A mi profesor, por entregar una tarea tarde">Entregué tarde una tarea</option>
+      </select>
+
+      <label for="destinatarioTema">¿A quién y por qué te disculpas?</label>
+      <textarea id="destinatarioTema" rows="3" placeholder="Ej: A mi mamá, por no contestar sus llamadas ayer"></textarea>
+
+      <label for="tono">Tono de la disculpa</label>
+      <select id="tono">
+        <option>Sincero</option>
+        <option>Formal</option>
+        <option>Cariñoso</option>
+        <option>Con humor</option>
+        <option>Breve y directo</option>
+      </select>
+
+      <button type="submit" id="botonGenerar">Generar mensaje</button>
+    </form>
+
+    <p id="error" class="error" role="alert" hidden></p>
+    <div id="cargando" class="cargando" hidden><span class="spinner"></span> Redactando tu disculpa…</div>
+
+    <section id="resultado" hidden>
+      <h2>Tu mensaje</h2>
+      <div id="textoResultado" class="mensaje"></div>
+      <button type="button" id="botonCopiar" class="secundario">Copiar texto</button>
+    </section>
+
+    <section id="seccionHistorial" hidden>
+      <h2>Últimos mensajes</h2>
+      <ul id="listaHistorial"></ul>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
