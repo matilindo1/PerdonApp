@@ -2,7 +2,7 @@
 // La API Key gratuita (Google AI Studio) se escribe en la página y se guarda en localStorage,
 // así no queda dentro del código que subes a GitHub.
 const LLAVE_CLAVE = "claveApiGemini";
-const MODELO = "gemini-2.5-flash";
+const MODELO = "gemini-3.8-flash";
 const URL_API = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
 const LLAVE_HISTORIAL = "historialMensajes";
 
