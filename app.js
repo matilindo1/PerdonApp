@@ -61,7 +61,7 @@ Reconoce el error, pide perdón de forma genuina y ofrece reparar o no repetirlo
     guardarEnHistorial(mensaje);
   } catch (error) {
     console.error(error);
-    mostrarError("No se pudo generar el mensaje. Revisa tu conexión o tu API Key e inténtalo de nuevo.");
+    mostrarError(`No se pudo generar el mensaje. ${error.message}`);
   } finally {
     establecerCargando(false);
   }
@@ -82,7 +82,9 @@ async function pedirMensajeAGemini(prompt, claveApi) {
   });
 
   if (!respuesta.ok) {
-    throw new Error(`Error de la API: ${respuesta.status}`);
+    // Leemos el detalle del error para saber qué pasó (clave inválida, cuota, modelo, etc.)
+    const detalle = await respuesta.json().catch(() => ({}));
+    throw new Error(`Error ${respuesta.status}: ${detalle.error?.message || "sin detalle"}`);
   }
 
   const datos = await respuesta.json();
