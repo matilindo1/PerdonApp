@@ -2,7 +2,7 @@
 // La API Key gratuita (Groq, console.groq.com/keys) se escribe en la página y se guarda en localStorage,
 // así no queda dentro del código que subes a GitHub.
 const LLAVE_CLAVE = "claveApiGroq";
-const MODELO = "llama-3.3-70b-versatile";
+const MODELO = "openai/gpt-oss-20b";
 const URL_API = "https://api.groq.com/openai/v1/chat/completions";
 const LLAVE_HISTORIAL = "historialMensajes";
 
