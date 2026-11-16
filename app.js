@@ -1,9 +1,9 @@
 // ====== CONFIGURACIÓN ======
-// La API Key gratuita (Google AI Studio) se escribe en la página y se guarda en localStorage,
+// La API Key gratuita (Groq, console.groq.com/keys) se escribe en la página y se guarda en localStorage,
 // así no queda dentro del código que subes a GitHub.
-const LLAVE_CLAVE = "claveApiGemini";
-const MODELO = "gemini-3.8-flash";
-const URL_API = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
+const LLAVE_CLAVE = "claveApiGroq";
+const MODELO = "llama-3.3-70b-versatile";
+const URL_API = "https://api.groq.com/openai/v1/chat/completions";
 const LLAVE_HISTORIAL = "historialMensajes";
 
 // ====== ELEMENTOS DEL DOM ======
@@ -55,7 +55,7 @@ Reconoce el error, pide perdón de forma genuina y ofrece reparar o no repetirlo
 
   establecerCargando(true);
   try {
-    const mensaje = await pedirMensajeAGemini(prompt, claveApi);
+    const mensaje = await pedirMensajeALaIA(prompt, claveApi);
     textoResultado.textContent = mensaje;
     seccionResultado.hidden = false;
     guardarEnHistorial(mensaje);
@@ -67,17 +67,18 @@ Reconoce el error, pide perdón de forma genuina y ofrece reparar o no repetirlo
   }
 });
 
-// ====== PETICIÓN A LA API DE GEMINI ======
-async function pedirMensajeAGemini(prompt, claveApi) {
-  // POST con fetch: la clave va en el encabezado x-goog-api-key
+// ====== PETICIÓN A LA API DE IA (GROQ) ======
+async function pedirMensajeALaIA(prompt, claveApi) {
+  // POST con fetch: la clave va en el encabezado Authorization
   const respuesta = await fetch(URL_API, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-goog-api-key": claveApi,
+      "Authorization": `Bearer ${claveApi}`,
     },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
+      model: MODELO,
+      messages: [{ role: "user", content: prompt }],
     }),
   });
 
@@ -88,8 +89,8 @@ async function pedirMensajeAGemini(prompt, claveApi) {
   }
 
   const datos = await respuesta.json();
-  // El texto generado está en candidates[0].content.parts[0].text
-  const texto = datos.candidates?.[0]?.content?.parts?.[0]?.text;
+  // El texto generado está en choices[0].message.content
+  const texto = datos.choices?.[0]?.message?.content;
   if (!texto) throw new Error("Respuesta vacía de la API");
   return texto.trim();
 }
