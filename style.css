@@ -1,0 +1,89 @@
+:root {
+  --fondo: #e8eef5;
+  --tarjeta: #ffffff;
+  --tinta: #14213d;
+  --acento: #2f5bea;
+  --suave: #5b6b85;
+  --borde: #c9d4e3;
+  --error: #b3261e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  line-height: 1.5;
+}
+.tarjeta {
+  width: 100%;
+  max-width: 560px;
+  background: var(--tarjeta);
+  border-radius: 16px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 30px rgba(20, 33, 61, .12);
+}
+h1 { margin: 0; font-size: 2rem; font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: 1.1rem; margin: 1.5rem 0 .5rem; }
+.subtitulo { margin: .25rem 0 1.25rem; color: var(--suave); }
+label { display: block; margin: 1rem 0 .35rem; font-weight: 600; }
+select, textarea, input {
+  width: 100%;
+  padding: .7rem .8rem;
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+}
+select:focus, textarea:focus, input:focus, button:focus-visible {
+  outline: 3px solid rgba(47, 91, 234, .35);
+  border-color: var(--acento);
+}
+button {
+  margin-top: 1.25rem;
+  width: 100%;
+  padding: .85rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--acento);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:disabled { opacity: .6; cursor: wait; }
+button.secundario { background: var(--tinta); }
+.mensaje {
+  white-space: pre-wrap;
+  background: var(--fondo);
+  border-left: 4px solid var(--acento);
+  border-radius: 8px;
+  padding: 1rem;
+  max-width: 65ch;
+}
+.error { color: var(--error); font-weight: 600; margin: 1rem 0 0; }
+.cargando { display: flex; align-items: center; gap: .6rem; margin-top: 1rem; color: var(--suave); }
+.spinner {
+  width: 1.2rem; height: 1.2rem;
+  border: 3px solid var(--borde);
+  border-top-color: var(--acento);
+  border-radius: 50%;
+  animation: girar .8s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+#listaHistorial { list-style: none; padding: 0; margin: 0; }
+#listaHistorial li {
+  padding: .6rem 0;
+  border-top: 1px solid var(--borde);
+  color: var(--suave);
+  font-size: .9rem;
+  white-space: pre-wrap;
+}
+[hidden] { display: none !important; }
